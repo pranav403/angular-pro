@@ -9,10 +9,10 @@ pipeline {
       stage('build'){
             steps {
                nodejs(nodeJSInstallationName: 'Nodejs 19.8.1'){
-               sh 'npm install -g npm@latest'
-               sh 'npm install -g npm@8.12.1'
+               sh 'npm install'
+               sh 'npm link @angular/cli'
                sh 'ng build'
-               sh 'mv /var/lib/jenkins/workspace/sam_ang/dist/zappy_boiler_plate/* /var/www/html'
+               sh 'cp -R /var/lib/jenkins/workspace/angular/dist/zappy_boiler_plate/* /var/www/html/'
                }
             }
         }
