@@ -1,20 +1,32 @@
 pipeline {
     agent any
+
     stages {
-        stage('git clone'){
+        stage('Git Clone') {
             steps {
-               git branch: 'main', url: 'https://github.com/Athira-krish/angular-pro.git'
+                git branch: 'main', url: 'https://github.com/Athira-krish/angular-pro.git'
             }
         }
-      stage('build'){
+        stage('build') {
             steps {
-               nodejs(nodeJSInstallationName: 'Nodejs 19.8.1'){
-               sh 'npm install'
-               sh 'npm link @angular/cli'
-               sh 'ng build'
-               sh 'cp -R /var/lib/jenkins/workspace/angular/dist/zappy_boiler_plate/* /var/www/html/'
-               }
+                nodejs(nodeJSInstallationName: 'angular'){
+                    sh 'npm install'
+                    sh 'npm link @angular/cli'
+                    sh 'ng build'
+                }    
             }
         }
-    }  
+        stage('aws log') {
+            steps {
+                withCredentials([[
+                $class: 'AmazonWebServicesCredentialsBinding',
+                credentialsId: 'aws',
+                accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']])
+                {
+                    sh 'aws s3 cp /var/lib/jenkins/workspace/angular/dist/zappy_boiler_plate/ s3://angular-qwertyuiop --recursive'
+                }
+            }
+        }
+    }
 }
