@@ -24,7 +24,7 @@ pipeline {
                 accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']])
                 {
-                    sh 'aws s3 cp /var/lib/jenkins/workspace/angular/dist/zappy_boiler_plate/ s3://angular-qwertyuiop --recursive'
+                    sh 'aws s3 cp /var/lib/jenkins/workspace/ang/dist/zappy_boiler_plate/ s3://pprraannaavv --recursive'
                 }
             }
         }
