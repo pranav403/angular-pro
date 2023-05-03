@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Git Clone') {
             steps {
-                git branch: 'main', url: 'https://github.com/Athira-krish/angular-pro.git'
+                git branch: 'main', url: 'https://github.com/pranav403/angular-pro.git'
             }
         }
         stage('build') {
